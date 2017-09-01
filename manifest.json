@@ -1,0 +1,30 @@
+{
+  "manifest_version": 2,
+  "name": "拼多多快速购买",
+  "description": "第一个版本，为了能够快速从淘宝上面购买商品。",
+  "version": "1.0",
+  "browser_action": {
+    "default_icon": "images/logo.png",
+    "default_popup": "html/popup.html"
+  },
+  "background": {
+    "scripts": [
+      "js/eventPage.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://mms.pinduoduo.com/*"
+      ],
+      "js": [
+        "js/get_pin_info.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "tabs",
+    "<all_urls>"
+  ]
+}
