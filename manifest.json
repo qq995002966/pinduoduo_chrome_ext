@@ -9,7 +9,7 @@
   },
   "background": {
     "scripts": [
-      "js/eventPage.js"
+      "js/background.js"
     ]
   },
   "content_scripts": [
@@ -18,10 +18,25 @@
         "http://mms.pinduoduo.com/*"
       ],
       "js": [
-        "js/get_pin_info.js"
+        "js/pinduoduo.js"
       ],
-      "run_at": "document_end"
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "http://buy.taobao.com/*",
+        "https://buy.taobao.com/*"
+      ],
+      "js": [
+        "js/taobao.js"
+      ],
+      "run_at": "document_idle"
     }
+  ],
+  "web_accessible_resources": [
+    "js/*",
+    "css/*",
+    "images/*"
   ],
   "permissions": [
     "tabs",
