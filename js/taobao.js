@@ -51,6 +51,8 @@ function setTaoBaoUserInfo(name, mobile, address) {
         var frame = document.getElementsByClassName("add-addr-iframe")[0];
         var innerDoc = frame.contentDocument;
 
+        innerDoc.getElementById("city-title").click();
+
         var nameElement = innerDoc.getElementsByName("fullName")[0];
         var mobileElement = innerDoc.getElementsByName("mobile")[0];
         var addressElement = innerDoc.getElementsByClassName("ks-combobox-input")[0];
@@ -66,14 +68,15 @@ function setTaoBaoUserInfo(name, mobile, address) {
         } else {
             province = address.substr(0, 2);
         }
+        console.log(province);
 
         var aElements = innerDoc.getElementsByTagName("a");
         for (var i = 0; i < aElements.length; i++) {
-            var temp = aElements[i];
-            if (temp.innerText == province) {
-                temp.click();
-                break;
+            if (aElements[i].innerText == province) {
+                aElements[i].click();
+                // break;
             }
         }
+        // innerDoc.getElementsByClassName("ks-combobox-input i-ta tsl")[0].click();
     }
 }

@@ -24,7 +24,7 @@ chrome.runtime.onMessage.addListener(
                 console.log(response.farewell);
             });
             sendResponse({farewell: "successful"});
-        }else if(request.type=="background_getUserInfo"){
+        } else if (request.type == "background_getUserInfo") {
             //这里是使用快捷键的时候,直接收到的background.js的请求时的操作
             //1.读取相关信息
             var userInfo = document.getElementsByClassName("o-d-b-i-c-people")[0];
@@ -38,6 +38,9 @@ chrome.runtime.onMessage.addListener(
                 phone: phone,
                 address: address
             });
+            console.log(name);
+            console.log(phone);
+            console.log(address);
         }
     });
 
