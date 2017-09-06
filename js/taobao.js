@@ -3,6 +3,8 @@ var name;
 var mobile;
 var address;
 
+document.getElementsByClassName("modify")[0].click();
+
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
 
