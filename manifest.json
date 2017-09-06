@@ -38,6 +38,20 @@
     "css/*",
     "images/*"
   ],
+  "commands": {
+    "getUserInfo": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+X"
+      },
+      "description": "get user info"
+    },
+    "setUserInfo": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+V"
+      },
+      "description": "set user info"
+    }
+  },
   "permissions": [
     "tabs",
     "<all_urls>"
