@@ -77,6 +77,16 @@ function setTaoBaoUserInfo(name, mobile, address) {
                 // break;
             }
         }
-        // innerDoc.getElementsByClassName("ks-combobox-input i-ta tsl")[0].click();
+        innerDoc.getElementsByClassName("ks-combobox-input i-ta tsl")[0].click();
+        innerDoc.getElementById("J_Street").blur();
+       
+        setTimeout(function(){
+        	innerDoc.getElementById("J_SelectCode").click();
+			innerDoc.getElementsByClassName(" btn  tsl")[0].click();
+			setTimeout(function(){
+        	document.getElementsByClassName("go-btn")[0].click();
+        },500);
+        },500);
+        
     }
 }
