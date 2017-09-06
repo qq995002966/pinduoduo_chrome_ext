@@ -24,25 +24,56 @@ chrome.runtime.onMessage.addListener(
                 console.log(mobile);
                 console.log(address);
 
-
-                if ((name == null) || (name == "") || (mobile == null) ||
-                    (mobile == "") || (address == null) || (address == "")) {
-                    alert("请先复制用户信息,再来粘贴.信息此时为空");
-                } else {
-                    //此时用户数据没什么问题,尝试更改网页
-                    var frame = document.getElementsByClassName("add-addr-iframe")[0];
-                    var innerDoc = frame.contentDocument;
-
-                    var nameElement = innerDoc.getElementsByName("fullName")[0];
-                    var mobileElement = innerDoc.getElementsByName("mobile")[0];
-                    var addressElement = innerDoc.getElementsByClassName("ks-combobox-input")[0];
-
-                    nameElement.value = name;
-                    mobileElement.value = mobile;
-                    addressElement.value=address;
-                }
+                setTaoBaoUserInfo(name, mobile, address);
             });
+        } else if (request.type == "background_setUserInfo") {
+            name = request.name;
+            mobile = request.phone;
+            address = request.address;
+
+            console.log(name);
+            console.log(mobile);
+            console.log(address);
+
+            setTaoBaoUserInfo(name, mobile, address);
+
+            sendResponse({farewell: "successful"});
         }
         sendResponse({farewell: "successful"});
     });
 
+function setTaoBaoUserInfo(name, mobile, address) {
+    if ((name == null) || (name == "") || (mobile == null) ||
+        (mobile == "") || (address == null) || (address == "")) {
+        alert("请先复制用户信息,再来粘贴.信息此时为空");
+    } else {
+        //此时用户数据没什么问题,尝试更改网页
+        var frame = document.getElementsByClassName("add-addr-iframe")[0];
+        var innerDoc = frame.contentDocument;
+
+        var nameElement = innerDoc.getElementsByName("fullName")[0];
+        var mobileElement = innerDoc.getElementsByName("mobile")[0];
+        var addressElement = innerDoc.getElementsByClassName("ks-combobox-input")[0];
+
+        nameElement.value = name;
+        mobileElement.value = mobile;
+        addressElement.value = address;
+
+
+        var province = "";
+        if (address.charAt(0) == "黑") {
+            province = address.substr(0, 3);
+        } else {
+            province = address.substr(0, 2);
+        }
+
+        var aElements = innerDoc.getElementsByTagName("a");
+        for (var i = 0; i < aElements.length; i++) {
+            var temp = aElements[i];
+            if (temp.innerText == province) {
+                temp.click();
+                break;
+            }
+        }
+    }
+}
