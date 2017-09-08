@@ -3,6 +3,7 @@
   "name": "拼多多快速购买",
   "description": "第一个版本，为了能够快速从淘宝上面购买商品。",
   "version": "1.0",
+  "options_page": "html/option.html",
   "browser_action": {
     "default_icon": "images/logo.png",
     "default_popup": "html/popup.html"
@@ -51,19 +52,20 @@
   "commands": {
     "getUserInfo": {
       "suggested_key": {
-        "windows": "Ctrl+Shift+X"
+        "windows": "Ctrl+Shift+Z"
       },
       "description": "get user info"
     },
     "setUserInfo": {
       "suggested_key": {
-        "windows": "Ctrl+Shift+V"
+        "windows": "Ctrl+Shift+X"
       },
       "description": "set user info"
     }
   },
   "permissions": [
     "tabs",
+    "storage",
     "<all_urls>"
   ]
 }

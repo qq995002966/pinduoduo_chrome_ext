@@ -5,28 +5,10 @@ var address;
 
 document.getElementsByClassName("modify")[0].click();
 
+//接受消息
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
-
-        if (request.type == "popup_setUserInfoTaoBao") {
-            //用户点击popup页面的中  复制到淘宝按钮
-            //需要做的,1.向background请求 userInfo
-            //设置userInfo
-            console.log("setUserInfoTaoBao");
-
-            //需要做的,1.向background请求 userInfo
-            chrome.runtime.sendMessage({type: "taobao_getUserInfo"}, function (response) {
-                name = response.name;
-                mobile = response.phone;
-                address = response.address;
-
-                console.log(name);
-                console.log(mobile);
-                console.log(address);
-
-                setTaoBaoUserInfo(name, mobile, address);
-            });
-        } else if (request.type == "background_setUserInfo") {
+        if (request.type == "background_setUserInfo") {
             name = request.name;
             mobile = request.phone;
             address = request.address;
@@ -42,6 +24,7 @@ chrome.runtime.onMessage.addListener(
         sendResponse({farewell: "successful"});
     });
 
+//具体填写网页表格的函数
 function setTaoBaoUserInfo(name, mobile, address) {
     if ((name == null) || (name == "") || (mobile == null) ||
         (mobile == "") || (address == null) || (address == "")) {
@@ -79,14 +62,16 @@ function setTaoBaoUserInfo(name, mobile, address) {
         }
         innerDoc.getElementsByClassName("ks-combobox-input i-ta tsl")[0].click();
         innerDoc.getElementById("J_Street").blur();
-       
-        setTimeout(function(){
-        	innerDoc.getElementById("J_SelectCode").click();
-			innerDoc.getElementsByClassName(" btn  tsl")[0].click();
-			setTimeout(function(){
-        	document.getElementsByClassName("go-btn")[0].click();
-        },500);
-        },500);
-        
+
+
+        setTimeout(function () {
+            innerDoc.getElementById("J_SelectCode").click();
+            innerDoc.getElementsByClassName(" btn  tsl")[0].click();
+            setTimeout(function () {
+                document.getElementsByClassName("go-btn")[0].click();
+            }, 400);
+        }, 800);
+
+
     }
 }
