@@ -3,6 +3,7 @@ package com.xiangyouhui.pinduoduo_chrome_ext.controller.auth;
 import com.xiangyouhui.pinduoduo_chrome_ext.Utils.TimeUtils;
 import com.xiangyouhui.pinduoduo_chrome_ext.common.ReturnCode;
 import com.xiangyouhui.pinduoduo_chrome_ext.persistence.UserInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,8 @@ import java.io.*;
 
 @RestController
 public class Auth {
+    @Autowired
+    TimeUtils timeUtils;
 
     @RequestMapping(value = "/login", method = {RequestMethod.GET})
     public String doLogin(@RequestParam(value = "username") String usernameParam,
@@ -22,7 +25,7 @@ public class Auth {
         } else if (!curUser.getPassword().equals(passwordParam)) {
             //密码不正确
             return ReturnCode.WRONG_PASSWORD;
-        } else if (TimeUtils.hasExpired(curUser.getExpiryTimeStr())) {
+        } else if (timeUtils.hasExpired(curUser.getExpiryTimeStr())) {
             //已经过期了 时间
             return ReturnCode.HAS_EXPIRED;
         } else {
@@ -44,7 +47,7 @@ public class Auth {
             curUser = new UserInfo();
             curUser.setUsername(usernameParam);
             curUser.setPassword(passwordParam);
-            curUser.setExpiryTimeStr(TimeUtils.getRegisterExp());
+            curUser.setExpiryTimeStr(timeUtils.getRegisterExp());
 
             storeUserInfo(curUser);
             return curUser.getExpiryTimeStr();

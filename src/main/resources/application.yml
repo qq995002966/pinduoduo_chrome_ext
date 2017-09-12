@@ -1,4 +1,4 @@
 server:
   port: ${port:8989}
 pinduoduo:
-  addDay: 3
+  add-day: ${port:8989}
